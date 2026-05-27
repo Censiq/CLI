@@ -1,0 +1,6 @@
+node_modules/
+censiq-reports/
+.censiq-last-run.json
+/arena.yaml
+.env
+*.log

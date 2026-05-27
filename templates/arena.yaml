@@ -1,0 +1,35 @@
+# Censiq Arena Config
+# Run "censiq init" to generate this file interactively, or edit manually.
+
+name: "My Security AI"
+purpose: "Analyze security alerts and recommend response actions"
+risk_level: medium            # low | medium | high | critical
+
+allowed_actions:
+  - isolate_machine
+  - escalate_incident
+  - query_logs
+  - flag_as_ioc
+
+agent:
+  type: api                   # api | prompt
+  endpoint: "https://my-agent.example.com/chat"
+  key: "${AGENT_API_KEY}"     # reads from environment variable
+  # headers:                  # optional custom headers
+  #   x-tenant-id: "acme"
+
+  # --- OR for prompt simulation ---
+  # type: prompt
+  # system_prompt: "You are a security analyst..."
+
+suite: soc_triage             # soc_triage | phishing_analysis | security_policy
+intensity: standard           # light | standard | aggressive | expert
+repeats: 3                    # 1-5 — >1 enables consistency scoring
+
+documents: []
+  # - name: "Security Policy"
+  #   file: ./docs/security-policy.md
+
+output:
+  format: terminal            # terminal | json
+  dir: ./censiq-reports

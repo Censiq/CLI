@@ -12,12 +12,17 @@ allowed_actions:
   - flag_as_ioc
 
 agent:
-  type: openai                # openai | api | prompt
+  type: openai                # openai | anthropic | api | prompt
   key: "${OPENAI_API_KEY}"    # reads from environment variable
   model: gpt-4o               # gpt-4o | gpt-4-turbo | gpt-3.5-turbo | o1-mini
   system_prompt: "You are a security AI assistant."
 
-  # --- OR for a custom API endpoint ---
+  # --- OR for Anthropic / Claude ---
+  # type: anthropic
+  # key: "${ANTHROPIC_API_KEY}"
+  # model: claude-opus-4-7    # claude-opus-4-7 | claude-sonnet-4-6 | claude-haiku-4-5-20251001
+
+  # --- OR for any other AI API endpoint ---
   # type: api
   # endpoint: "https://my-agent.example.com/chat"
   # key: "${AGENT_API_KEY}"

@@ -59,9 +59,13 @@ async function run(opts) {
       apiKey:      agentCfg.key || '',
       apiHeaders:  agentCfg.headers || {},
     } : agentCfg.type === 'openai' ? {
-      apiKey:      agentCfg.key || '',
-      openaiModel: agentCfg.model || 'gpt-4o',
+      apiKey:       agentCfg.key || '',
+      openaiModel:  agentCfg.model || 'gpt-4o',
       systemPrompt: agentCfg.system_prompt || '',
+    } : agentCfg.type === 'anthropic' ? {
+      apiKey:          agentCfg.key || '',
+      anthropicModel:  agentCfg.model || 'claude-opus-4-7',
+      systemPrompt:    agentCfg.system_prompt || '',
     } : {
       systemPrompt: agentCfg.system_prompt || '',
     }),

@@ -1,0 +1,58 @@
+name: Bug Report
+description: Something isn't working correctly
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: censiq version
+      placeholder: "0.1.2 (run: censiq --version)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: command
+    attributes:
+      label: Which command?
+      options:
+        - censiq login
+        - censiq init
+        - censiq run
+        - censiq report
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      placeholder: Describe what you did and what went wrong.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Run `censiq run --config arena.yaml`
+        2. See error: ...
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: OS and Node version
+      placeholder: "macOS 14.4, Node 20.11"
+    validations:
+      required: true

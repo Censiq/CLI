@@ -1,0 +1,45 @@
+name: Feature Request
+description: Suggest an improvement or new capability
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - New command
+        - Output format (--format)
+        - Agent adapter (--adapter)
+        - Shell completions
+        - arena.yaml config option
+        - CI/CD integration
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      placeholder: |
+        When I run censiq run in GitHub Actions, the output isn't picked up by
+        the PR check dashboard because it's terminal text, not a recognized format...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      placeholder: |
+        Add a --format sarif flag that outputs results as a SARIF file,
+        compatible with GitHub Code Scanning upload-sarif action...
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Are you willing to implement this?
+      options:
+        - label: Yes, I'd like to open a PR for this
+        - label: No, just suggesting it

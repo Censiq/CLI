@@ -83,7 +83,8 @@ async function run(opts) {
   const createSpinner = ora({ text: 'Creating arena...', prefixText: ' ' }).start();
   let arena;
   try {
-    arena = await postArena(arenaBody);
+    const res = await postArena(arenaBody);
+    arena = res.arena || res;
     createSpinner.succeed('Arena created');
   } catch (err) {
     createSpinner.fail(`Failed to create arena: ${err.message}`);
@@ -94,7 +95,8 @@ async function run(opts) {
   const runSpinner = ora({ text: 'Starting run...', prefixText: ' ' }).start();
   let runDoc;
   try {
-    runDoc = await postRun(arena._id || arena.id, runBody);
+    const res = await postRun(arena._id || arena.id, runBody);
+    runDoc = res.run || res;
     runSpinner.succeed('Run started');
   } catch (err) {
     runSpinner.fail(`Failed to start run: ${err.message}`);
@@ -118,7 +120,8 @@ async function run(opts) {
 
     let current;
     try {
-      current = await getRun(runId);
+      const res = await getRun(runId);
+      current = res.run || res;
     } catch {
       // transient error — keep polling
       continue;

@@ -3,7 +3,7 @@
 const axios       = require('axios');
 const { readAuth, clearAuth } = require('./config');
 
-const BASE_URL = process.env.CENSIQ_API_URL || 'https://censiq.com';
+const BASE_URL = process.env.CENSIQ_API_URL || 'https://censiq-zc1a.onrender.com';
 
 function getClient() {
   // CENSIQ_API_KEY env var takes precedence over saved auth file
@@ -51,7 +51,6 @@ async function getSuites() {
 }
 
 module.exports = {
-  postLogin,
   postArena,
   postRun,
   getRun,

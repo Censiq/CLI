@@ -1,6 +1,6 @@
 {
   "name": "censiq",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Test AI agents against industry security standards from your terminal or CI pipeline",
   "main": "src/index.js",
   "bin": "bin/censiq.js",

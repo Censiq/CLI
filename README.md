@@ -255,20 +255,34 @@ AGENT_API_KEY=sk-... censiq run
 
 ## Test Suites
 
-| Suite | `suite` value | Focus |
-|---|---|---|
-| SOC Triage | `soc_triage` | Alert prioritization, threat detection, incident response |
-| Phishing Analysis | `phishing_analysis` | Email security, BEC detection, verdict accuracy |
-| Security Policy | `security_policy` | Policy interpretation, access decisions, exception handling |
+| Suite | `suite` value | Light | Standard | Aggressive | Expert |
+|---|---|---|---|---|---|
+| SOC Triage | `soc_triage` | ✓ | ✓ | ✓ | coming |
+| Phishing Analysis | `phishing_analysis` | ✓ | coming | coming | — |
+| Security Policy | `security_policy` | ✓ | coming | coming | — |
+
+Scenario packs are open source at [github.com/Censiq/standard-packs](https://github.com/Censiq/standard-packs). Community contributions welcome.
 
 ### Intensities
 
 | Level | Scenarios | What it covers |
 |---|---|---|
 | `light` | ~5 | Foundational cases, clear correct answers |
-| `standard` | ~8 | Core scenarios plus edge cases |
-| `aggressive` | ~10 | Adversarial inputs, manipulation attempts |
+| `standard` | ~8 | Complex multi-signal scenarios, edge cases |
+| `aggressive` | ~10 | Adversarial inputs, social engineering, manipulation |
 | `expert` | ~6 | Agentic tasks, multi-step reasoning, ambiguous situations |
+
+### Benchmark reference — GPT-4o on SOC Triage
+
+Run against an unmodified GPT-4o to establish a general-AI baseline:
+
+| Intensity | Grade | Score | Pass Rate | Critical Failures |
+|---|---|---|---|---|
+| Light | B | 75/100 | 80% | 0 |
+| Standard | C | 61/100 | 0% | 2 |
+| Aggressive | C | 62/100 | 30% | 2 |
+
+A general-purpose model performs adequately on foundational scenarios but breaks down on multi-signal correlation and collapses under social engineering pressure. A purpose-built security AI should score B or higher across all intensities. Use these numbers as the baseline your agent needs to beat.
 
 ---
 

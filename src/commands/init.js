@@ -45,10 +45,13 @@ async function init() {
     try {
       const res = await getSuites();
       if (res.suites?.length) {
-        suiteChoices = res.suites.map(s => ({
-          name: `${s.displayName} (${s.totalScenarios} scenarios)`,
-          value: s.suite,
-        }));
+        suiteChoices = res.suites.map(s => {
+          const total = Object.values(s.scenarioCounts || {}).reduce((a, b) => a + b, 0);
+          return {
+            name: `${s.name}${total ? ` (${total} scenarios)` : ''}`,
+            value: s.id,
+          };
+        });
       }
     } catch {}
   }

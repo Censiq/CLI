@@ -100,7 +100,7 @@ The wizard prompts for:
 - Agent name and purpose
 - Risk level (low / medium / high / critical)
 - Allowed actions your agent can take
-- Connection type: live API endpoint or system prompt simulation
+- Connection type: OpenAI, Anthropic, custom API endpoint, or prompt simulation
 - Test suite and intensity
 - Number of repeats for consistency scoring
 
@@ -148,12 +148,22 @@ allowed_actions:
 
 # Agent connection — choose one mode
 agent:
-  # Mode 1: live API endpoint
-  type: api
-  endpoint: "https://your-agent.example.com/chat"
-  key: "${AGENT_API_KEY}"       # reads from environment variable at runtime
+  # Mode 1: OpenAI model
+  type: openai
+  key: "${OPENAI_API_KEY}"
+  model: gpt-4o                 # gpt-4o | gpt-4-turbo | gpt-3.5-turbo | o1-mini
 
-  # Mode 2: prompt simulation (test a system prompt without a live endpoint)
+  # Mode 2: Anthropic / Claude model
+  # type: anthropic
+  # key: "${ANTHROPIC_API_KEY}"
+  # model: claude-opus-4-7      # claude-opus-4-7 | claude-sonnet-4-6 | claude-haiku-4-5-20251001
+
+  # Mode 3: any custom API endpoint
+  # type: api
+  # endpoint: "https://your-agent.example.com/chat"
+  # key: "${AGENT_API_KEY}"
+
+  # Mode 4: prompt simulation (no live endpoint — tests a system prompt)
   # type: prompt
   # system_prompt: "You are a security analyst..."
 
@@ -175,7 +185,35 @@ output:
 
 ### Agent connection modes
 
-**API mode** — sends each test scenario as a POST request to your endpoint:
+**`openai`** — calls OpenAI's chat completions API directly. Provide your OpenAI API key and model; no endpoint configuration needed.
+
+```yaml
+agent:
+  type: openai
+  key: "${OPENAI_API_KEY}"
+  model: gpt-4o
+  system_prompt: "You are a security AI assistant."   # optional
+```
+
+Supported models: `gpt-4o`, `gpt-4-turbo`, `gpt-3.5-turbo`, `o1-mini`, and any current OpenAI chat model.
+
+---
+
+**`anthropic`** — calls the Anthropic API directly using your own API key.
+
+```yaml
+agent:
+  type: anthropic
+  key: "${ANTHROPIC_API_KEY}"
+  model: claude-opus-4-7
+  system_prompt: "You are a security AI assistant."   # optional
+```
+
+Supported models: `claude-opus-4-7`, `claude-sonnet-4-6`, `claude-haiku-4-5-20251001`.
+
+---
+
+**`api`** — sends each scenario as a POST to your own endpoint. Use this for custom agents, LangChain servers, or any AI backend you host yourself.
 
 ```
 POST https://your-agent.example.com/chat
@@ -184,9 +222,26 @@ Content-Type: application/json
 { "message": "<scenario prompt>", "prompt": "<scenario prompt>" }
 ```
 
-Your endpoint must return a JSON response with one of these fields: `response`, `message`, `content`, `text`, or `choices[0].message.content` (OpenAI-compatible).
+Your endpoint must return JSON with one of these fields: `response`, `message`, `content`, `text`, or `choices[0].message.content`.
 
-**Prompt mode** — simulates your agent using a system prompt, powered by Claude. Useful for testing a prompt before wiring up a full endpoint.
+```yaml
+agent:
+  type: api
+  endpoint: "https://your-agent.example.com/chat"
+  key: "${AGENT_API_KEY}"
+  headers:                      # optional custom headers
+    x-tenant-id: "acme"
+```
+
+---
+
+**`prompt`** — simulates your agent using a system prompt, powered by Censiq's built-in model. Useful for testing a prompt before wiring up a live endpoint.
+
+```yaml
+agent:
+  type: prompt
+  system_prompt: "You are a security analyst..."
+```
 
 ### Environment variable expansion
 

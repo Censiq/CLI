@@ -11,7 +11,7 @@ const program = new Command();
 program
   .name('censiq')
   .description('Test AI agents against industry security standards')
-  .version('0.1.0');
+  .version(require('../package.json').version);
 
 program
   .command('login')

@@ -12,13 +12,19 @@ allowed_actions:
   - flag_as_ioc
 
 agent:
-  type: api                   # api | prompt
-  endpoint: "https://my-agent.example.com/chat"
-  key: "${AGENT_API_KEY}"     # reads from environment variable
-  # headers:                  # optional custom headers
+  type: openai                # openai | api | prompt
+  key: "${OPENAI_API_KEY}"    # reads from environment variable
+  model: gpt-4o               # gpt-4o | gpt-4-turbo | gpt-3.5-turbo | o1-mini
+  system_prompt: "You are a security AI assistant."
+
+  # --- OR for a custom API endpoint ---
+  # type: api
+  # endpoint: "https://my-agent.example.com/chat"
+  # key: "${AGENT_API_KEY}"
+  # headers:
   #   x-tenant-id: "acme"
 
-  # --- OR for prompt simulation ---
+  # --- OR for prompt simulation (uses Censiq's built-in model) ---
   # type: prompt
   # system_prompt: "You are a security analyst..."
 

@@ -54,15 +54,17 @@ async function run(opts) {
     riskLevel:      cfg.risk_level || 'medium',
     allowedActions: cfg.allowed_actions || [],
     connectionType: agentCfg.type || 'prompt',
-    ...(agentCfg.type === 'api'
-      ? {
-          apiEndpoint: agentCfg.endpoint,
-          apiKey:      agentCfg.key || '',
-          apiHeaders:  agentCfg.headers || {},
-        }
-      : {
-          systemPrompt: agentCfg.system_prompt || '',
-        }),
+    ...(agentCfg.type === 'api' ? {
+      apiEndpoint: agentCfg.endpoint,
+      apiKey:      agentCfg.key || '',
+      apiHeaders:  agentCfg.headers || {},
+    } : agentCfg.type === 'openai' ? {
+      apiKey:      agentCfg.key || '',
+      openaiModel: agentCfg.model || 'gpt-4o',
+      systemPrompt: agentCfg.system_prompt || '',
+    } : {
+      systemPrompt: agentCfg.system_prompt || '',
+    }),
     documents,
     status: 'ready',
   };

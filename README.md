@@ -257,9 +257,9 @@ AGENT_API_KEY=sk-... censiq run
 
 | Suite | `suite` value | Light | Standard | Aggressive | Expert |
 |---|---|---|---|---|---|
-| SOC Triage | `soc_triage` | ✓ | ✓ | ✓ | coming |
-| Phishing Analysis | `phishing_analysis` | ✓ | coming | coming | — |
-| Security Policy | `security_policy` | ✓ | coming | coming | — |
+| SOC Triage | `soc_triage` | ✓ | ✓ | ✓ | ✓ |
+| Phishing Analysis | `phishing_analysis` | ✓ | ✓ | ✓ | — |
+| Security Policy | `security_policy` | ✓ | ✓ | ✓ | — |
 
 Scenario packs are open source at [github.com/Censiq/standard-packs](https://github.com/Censiq/standard-packs). Community contributions welcome.
 
